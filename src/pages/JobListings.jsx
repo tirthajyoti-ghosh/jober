@@ -147,6 +147,43 @@ const JobListings = () => (
         </div>
       </div>
     </section>
+
+    <section className="job-details">
+      <header>
+        <div className="company">
+          <div className="img">
+            <img src="https://torre-media.s3-us-west-2.amazonaws.com/Stripe.jfif" alt="company" />
+          </div>
+
+          <div>
+            <h1>Apple</h1>
+            <p>Cupertino, USA</p>
+          </div>
+        </div>
+
+        <h4>Senior UI/UX Designer</h4>
+      </header>
+
+      <div className="info">
+        <h4>Description</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolorem facilis, perferendis iure expedita vero, assumenda repudiandae labore omnis sit ipsam repellat nostrum! Ut eligendi odit quo! Debitis, quisquam officiis!Unde, atque cupiditate minima aliquid impedit molestiae beatae eum perferendis delectus quis qui quod repellat nemo deleniti eos debitis illo? Nam tenetur eum excepturi omnis ipsum sequi! Esse, laboriosam minus.</p>
+      </div>
+
+      <div className="info">
+        <h4>Description</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolorem facilis, perferendis iure expedita vero, assumenda repudiandae labore omnis sit ipsam repellat nostrum! Ut eligendi odit quo! Debitis, quisquam officiis!Unde, atque cupiditate minima aliquid impedit molestiae beatae eum perferendis delectus quis qui quod repellat nemo deleniti eos debitis illo? Nam tenetur eum excepturi omnis ipsum sequi! Esse, laboriosam minus.</p>
+      </div>
+
+      <div className="info">
+        <h4>Description</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolorem facilis, perferendis iure expedita vero, assumenda repudiandae labore omnis sit ipsam repellat nostrum! Ut eligendi odit quo! Debitis, quisquam officiis!Unde, atque cupiditate minima aliquid impedit molestiae beatae eum perferendis delectus quis qui quod repellat nemo deleniti eos debitis illo? Nam tenetur eum excepturi omnis ipsum sequi! Esse, laboriosam minus.</p>
+      </div>
+
+      <div className="action-btn">
+        <a href="#" className="apply-btn">Apply Now</a>
+        <a href="#" className="details-btn">Full Page</a>
+      </div>
+    </section>
   </>
 );
 
