@@ -1,8 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
-
 
 const SideNav = () => (
   <div className="sidenav">
@@ -15,7 +15,6 @@ const SideNav = () => (
       <a href="#">Community</a>
       <a href="#">More</a>
     </section>
-
 
     <a href="#" style={{ marginBottom: '50%' }}>Login</a>
   </div>
