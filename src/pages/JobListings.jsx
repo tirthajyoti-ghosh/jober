@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Search from '../components/Search';
 import queryApi from '../helpers/apiUtilities';
 import updateLoadingState from '../store/actions/loadingState';
 import addJobSearchResults from '../store/actions/jobSearchResults';
+import addJobDetails from '../store/actions/jobDetails';
 
 const JobListings = ({
   isLoading,
   jobSearchResults,
+  jobDetails,
   dispatchUpdateLoadingState,
-  dispatchJobSearchResults,
+  dispatchAddJobSearchResults,
+  dispatchAddJobDetails,
 }) => {
   const initiateSearch = query => {
     dispatchUpdateLoadingState(true);
 
     queryApi.post(0, { 'skill/role': { text: query, experience: 'potential-to-develop' } })
       .then(result => {
-        dispatchJobSearchResults({ result: result.results, total: result.total });
+        dispatchAddJobSearchResults({ result: result.results, total: result.total });
+        dispatchUpdateLoadingState(false);
+      });
+  };
+
+  const getJobDetails = jobId => {
+    dispatchUpdateLoadingState(true);
+
+    queryApi.get(`https://torre.co/api/opportunities/${jobId}`)
+      .then(result => {
+        dispatchAddJobDetails(result);
         dispatchUpdateLoadingState(false);
       });
   };
@@ -29,7 +42,7 @@ const JobListings = ({
       }
       return `Remote - ${locations.join('; ')}`;
     }
-    return locations.join(';');
+    return locations.join('; ');
   };
 
   const formatCompensation = compensation => {
@@ -44,71 +57,75 @@ const JobListings = ({
       <Search initiateSearch={initiateSearch} total={jobSearchResults.total} />
 
       <section className="job-listings">
-        {
-          jobSearchResults.result === undefined
-            ? 'Start typing...'
-            : isLoading
-              ? 'Loading...'
-              : jobSearchResults.result.map(job => (
-                <div className="job-card" key={job.id}>
-                  <div className="company">
-                    <div className="img">
-                      <img src={job.organizations[0].picture} alt="company" />
-                    </div>
+        { !jobSearchResults.result
+          ? 'Start typing...' : (
+            jobSearchResults.result.map(job => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+              <div className="job-card" key={job.id} role="menuitem" tabIndex={0} onClick={() => getJobDetails(job.id)}>
+                <div className="company">
+                  <div className="img">
+                    {job.organizations[0] ? (<img src={job.organizations[0].picture} alt="company" />) : ''}
+                  </div>
 
-                    <div className="info">
-                      <h3>{job.objective.length > 30 ? `${job.objective.slice(0, 30)}...` : job.objective}</h3>
-                      <p>{job.organizations[0].name}</p>
-                    </div>
-                  </div>
-                  <div>
-                    <h3>{formatLocations(job.remote, job.locations)}</h3>
-                    <p>Location</p>
-                  </div>
-                  <div>
-                    <h3>{formatCompensation(job.compensation)}</h3>
-                    <p>Salary</p>
+                  <div className="info">
+                    <h3>{job.objective.length > 30 ? `${job.objective.slice(0, 30)}...` : job.objective}</h3>
+                    <p>{job.organizations[0] ? job.organizations[0].name : ''}</p>
                   </div>
                 </div>
-              ))
-        }
+                <div>
+                  <h3>{formatLocations(job.remote, job.locations)}</h3>
+                  <p>Location</p>
+                </div>
+                <div>
+                  <h3>{formatCompensation(job.compensation)}</h3>
+                  <p>Salary</p>
+                </div>
+              </div>
+            )))}
       </section>
 
       <section className="job-details">
-        <header>
-          <div className="company">
-            <div className="img">
-              <img src="https://torre-media.s3-us-west-2.amazonaws.com/Stripe.jfif" alt="company" />
-            </div>
+        {
+          jobDetails.id === undefined
+            ? 'Start typing...'
+            : (
+              <>
+                <header>
+                  <div className="company">
+                    <div className="img">
+                      {jobDetails.organizations[0] ? (<img src={jobDetails.organizations[0].picture} alt="company" />) : ''}
+                    </div>
 
-            <div>
-              <h1>Apple</h1>
-              <p>Cupertino, USA</p>
-            </div>
-          </div>
+                    <div>
+                      <h1>{jobDetails.organizations[0] ? jobDetails.organizations[0].name : ''}</h1>
+                      {jobDetails.place.location.length > 0
+                        ? (
+                          <p>{jobDetails.place.location.map(location => location.id)}</p>
+                        ) : ''}
+                    </div>
+                  </div>
 
-          <h4>Senior UI/UX Designer</h4>
-        </header>
+                  <h4>{jobDetails.objective}</h4>
+                </header>
 
-        <div className="info">
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolorem facilis, perferendis iure expedita vero, assumenda repudiandae labore omnis sit ipsam repellat nostrum! Ut eligendi odit quo! Debitis, quisquam officiis!Unde, atque cupiditate minima aliquid impedit molestiae beatae eum perferendis delectus quis qui quod repellat nemo deleniti eos debitis illo? Nam tenetur eum excepturi omnis ipsum sequi! Esse, laboriosam minus.</p>
-        </div>
+                {
+                  jobDetails.details.map(detail => (
+                    <div className="info" key={Math.random()}>
+                      <h4>{detail.code}</h4>
+                      {detail.content.split('\n').map(text => (
+                        <p key={Math.random()}>{text}</p>
+                      ))}
+                    </div>
+                  ))
+                }
 
-        <div className="info">
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolorem facilis, perferendis iure expedita vero, assumenda repudiandae labore omnis sit ipsam repellat nostrum! Ut eligendi odit quo! Debitis, quisquam officiis!Unde, atque cupiditate minima aliquid impedit molestiae beatae eum perferendis delectus quis qui quod repellat nemo deleniti eos debitis illo? Nam tenetur eum excepturi omnis ipsum sequi! Esse, laboriosam minus.</p>
-        </div>
-
-        <div className="info">
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolorem facilis, perferendis iure expedita vero, assumenda repudiandae labore omnis sit ipsam repellat nostrum! Ut eligendi odit quo! Debitis, quisquam officiis!Unde, atque cupiditate minima aliquid impedit molestiae beatae eum perferendis delectus quis qui quod repellat nemo deleniti eos debitis illo? Nam tenetur eum excepturi omnis ipsum sequi! Esse, laboriosam minus.</p>
-        </div>
-
-        <div className="action-btn">
-          <a href="#" className="apply-btn">Apply Now</a>
-          <a href="#" className="details-btn">Full Page</a>
-        </div>
+                <div className="action-btn">
+                  <a href={`https://torre.co/jobs/${jobDetails.id}`} rel="noreferrer" target="_blank" className="apply-btn">Apply Now</a>
+                  <a href={`https://torre.co/jobs/${jobDetails.id}`} rel="noreferrer" target="_blank" className="details-btn">Full Page</a>
+                </div>
+              </>
+            )
+        }
       </section>
     </>
   );
@@ -117,11 +134,13 @@ const JobListings = ({
 const mapStateToProps = state => ({
   isLoading: state.isLoading,
   jobSearchResults: state.jobSearchResults,
+  jobDetails: state.jobDetails,
 });
 
 const mapDispatchToProps = dispatch => ({
   dispatchUpdateLoadingState: value => dispatch(updateLoadingState(value)),
-  dispatchJobSearchResults: value => dispatch(addJobSearchResults(value)),
+  dispatchAddJobSearchResults: value => dispatch(addJobSearchResults(value)),
+  dispatchAddJobDetails: value => dispatch(addJobDetails(value)),
 });
 
 export default connect(

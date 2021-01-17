@@ -11,6 +11,7 @@ import App from './App';
 const initialState = {
   isLoading: false,
   jobSearchResults: {},
+  jobDetails: {},
 };
 
 const store = createStore(reducer,

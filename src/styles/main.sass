@@ -2,7 +2,7 @@
   
 $purple: #6F32FF
 $deep-purple: #351477
-$grey: #B8BDCB
+$grey: #acb1bf
 $orange: #FF9066
 
 @mixin flex($justify-content, $align-items)
@@ -54,8 +54,8 @@ body
           &::before
             position: absolute
             left: 0
-            top: 15px
-            bottom: 15px
+            top: 14px
+            bottom: 14px
             content: ''
             width: 6px
             background-color: $purple
@@ -160,12 +160,13 @@ body
 
     .job-listings
       margin-top: 50px
-      padding: 0 25px
+      padding: 25px 25px 0 25px
       height: calc(100vh - 280px)
       overflow-y: auto
 
       .job-card
         @include flex($justify-content: space-between, $align-items: center)
+        @include no-border()
         background-color: #fff
         border-radius: 30px
         padding: 35px 30px
@@ -222,6 +223,7 @@ body
       p
         color: $grey
         margin: 0
+        word-break: break-all
 
       header
         h4
@@ -230,7 +232,7 @@ body
 
         .company
           @include flex($justify-content: unset, $align-items: center)
-          width: 55%
+          width: fit-content
           margin: 50px auto 20px auto
 
           .img
@@ -247,6 +249,12 @@ body
 
       .info
         padding: 10px 30px
+
+        h4
+          text-transform: capitalize
+
+        p
+          margin: 20px 0
 
       .action-btn
         @include flex($justify-content: space-around, $align-items: center)

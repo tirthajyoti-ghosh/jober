@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const queryApi = {
-  get: (type, param) => (
-    axios.get(`https://torre.bio/api/${type}/${param}`)
+  get: (url) => (
+    axios.get(url)
       .then(result => result.data)
   ),
   post: (page = 0, data) => (

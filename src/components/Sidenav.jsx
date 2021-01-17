@@ -11,7 +11,7 @@ const SideNav = () => (
     <section className="nav-items">
       <a href="#">Home</a>
       <NavLink exact to="/jobs" activeClassName="active">Search Job</NavLink>
-      <NavLink exact to="/people" activeClassName="active">Find People</NavLink>
+      <NavLink exact to="/talents" activeClassName="active">Find Talent</NavLink>
       <a href="#">Community</a>
       <a href="#">More</a>
     </section>
