@@ -7,7 +7,7 @@ const Listings = ({
   searchResults,
   searchType,
   location,
-  getJobDetails,
+  getDetails,
 }) => {
   const searchParams = queryString.parse(location.search);
 
@@ -21,84 +21,120 @@ const Listings = ({
     return locations.join('; ');
   };
 
-  const formatCompensation = compensation => {
+  const formatSkills = skills => skills
+    .sort((first, second) => second.weight - first.weight)
+    .slice(0, 3)
+    .map(skill => (
+      <a href={`/people?query=${skill.name.toLowerCase()}`} key={skill.name}>{skill.name}</a>
+    ));
+
+  const formatJobCompensation = compensation => {
     if (compensation === null || compensation.data === null) {
       return 'Not available';
     }
     return `${compensation.data.currency} ${compensation.data.minAmount} - ${compensation.data.maxAmount} /${compensation.data.periodicity}`;
   };
 
-  const jobSearchResultsJsx = !searchResults.result
-    ? (
-      <div className="static-img">
-        <h2>Let&apos;s get started!</h2>
-        <img src={jobSearchImg} alt="" />
-      </div>
-    )
-    : (
-      <section className="job-listings">
-        {searchResults.result.map(job => (
+  const formatPeopleCompensations = compensations => {
+    if (compensations.freelancer) {
+      return `${compensations.freelancer.currency} ${compensations.freelancer.amount}/${compensations.freelancer.periodicity}`;
+    }
+
+    if (compensations.intern) {
+      return `${compensations.intern.currency} ${compensations.intern.amount}/${compensations.intern.periodicity}`;
+    }
+
+    if (compensations.employee) {
+      return `${compensations.employee.currency} ${compensations.employee.amount}/${compensations.employee.periodicity}`;
+    }
+
+    return 'Not available';
+  };
+
+  const jobSearchResultsJsx = () => {
+    if (searchType !== 'job') {
+      return '';
+    }
+
+    return !searchResults.result
+      ? (
+        <div className="static-img">
+          <h2>Let&apos;s get started!</h2>
+          <img src={jobSearchImg} alt="" />
+        </div>
+      )
+      : (
+        <section className="job-listings">
+          {searchResults.result.map(job => (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+            <div className={`job-card ${searchParams.jobId && searchParams.jobId === job.id ? 'active' : ''}`} key={job.id} role="menuitem" tabIndex={0} onClick={() => getDetails(job.id)}>
+              <div className="company">
+                <div className="img">
+                  {job.organizations[0] ? (<img src={job.organizations[0].picture} alt="company" />) : ''}
+                </div>
+
+                <div className="info">
+                  <h3>{job.objective.length > 30 ? `${job.objective.slice(0, 30)}...` : job.objective}</h3>
+                  <p>{job.organizations[0] ? job.organizations[0].name : ''}</p>
+                </div>
+              </div>
+              <div>
+                <h3>{formatLocations(job.remote, job.locations)}</h3>
+                <p>Location</p>
+              </div>
+              <div>
+                <h3>{formatJobCompensation(job.compensation)}</h3>
+                <p>Salary</p>
+              </div>
+            </div>
+          ))}
+        </section>
+      );
+  };
+
+  const peopleSearchResultsJsx = () => {
+    if (searchType !== 'people') {
+      return '';
+    }
+
+    return !searchResults.result
+      ? (
+        <div className="static-img">
+          <h2>Let&apos;s get started!</h2>
+          <img src={jobSearchImg} alt="" />
+        </div>
+      )
+      : (
+        <section className="job-listings">
+          {searchResults.result.map(people => (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-          <div className={`job-card ${searchParams.jobId && searchParams.jobId === job.id ? 'active' : ''}`} key={job.id} role="menuitem" tabIndex={0} onClick={() => getJobDetails(job.id)}>
-            <div className="company">
-              <div className="img">
-                {job.organizations[0] ? (<img src={job.organizations[0].picture} alt="company" />) : ''}
-              </div>
+            <div className={`job-card ${searchParams.username && searchParams.username === people.username ? 'active' : ''}`} key={people.username} role="menuitem" tabIndex={0} onClick={() => getDetails(people.username)}>
+              <div className="company">
+                <div className="img">
+                  {people.picture ? (<img src={people.picture} alt={people.name} />) : ''}
+                </div>
 
-              <div className="info">
-                <h3>{job.objective.length > 30 ? `${job.objective.slice(0, 30)}...` : job.objective}</h3>
-                <p>{job.organizations[0] ? job.organizations[0].name : ''}</p>
+                <div className="info">
+                  <h3>{people.name.length > 30 ? `${people.name.slice(0, 30)}...` : people.name}</h3>
+                  <p>{people.professionalHeadline.length > 30 ? `${people.professionalHeadline.slice(0, 30)}...` : people.professionalHeadline}</p>
+                </div>
               </div>
-            </div>
-            <div>
-              <h3>{formatLocations(job.remote, job.locations)}</h3>
-              <p>Location</p>
-            </div>
-            <div>
-              <h3>{formatCompensation(job.compensation)}</h3>
-              <p>Salary</p>
-            </div>
-          </div>
-        ))}
-      </section>
-    );
-
-  const peopleSearchResultsJsx = !searchResults.result
-    ? (
-      <div className="static-img">
-        <h2>Let&apos;s get started!</h2>
-        <img src={jobSearchImg} alt="" />
-      </div>
-    )
-    : (
-      <section className="job-listings">
-        {searchResults.result.map(job => (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-          <div className={`job-card ${searchParams.jobId && searchParams.jobId === job.id ? 'active' : ''}`} key={job.id} role="menuitem" tabIndex={0} onClick={() => getJobDetails(job.id)}>
-            <div className="company">
-              <div className="img">
-                {job.organizations[0] ? (<img src={job.organizations[0].picture} alt="company" />) : ''}
+              <div>
+                {/* Sort skills by weight in descending order and take first 3 */}
+                {formatSkills(people.skills)}
+                <p>Skills</p>
               </div>
-
-              <div className="info">
-                <h3>{job.objective.length > 30 ? `${job.objective.slice(0, 30)}...` : job.objective}</h3>
-                <p>{job.organizations[0] ? job.organizations[0].name : ''}</p>
+              <div>
+                <h3>{formatPeopleCompensations(people.compensations)}</h3>
+                <p>Compensations</p>
               </div>
             </div>
-            <div>
-              <h3>{formatLocations(job.remote, job.locations)}</h3>
-              <p>Location</p>
-            </div>
-            <div>
-              <h3>{formatCompensation(job.compensation)}</h3>
-              <p>Salary</p>
-            </div>
-          </div>
-        ))}
-      </section>
-    );
+          ))}
+        </section>
+      );
+  };
 
-  return searchType === 'job' ? jobSearchResultsJsx : peopleSearchResultsJsx;
+  return searchType === 'job' ? jobSearchResultsJsx() : peopleSearchResultsJsx();
 };
 
 export default Listings;

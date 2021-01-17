@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Sidenav from './components/Sidenav';
 import FindJobs from './pages/FindJobs';
+import FindPeople from './pages/FindPeople';
 import './styles/main.sass';
 
 const App = () => (
@@ -10,6 +11,7 @@ const App = () => (
     <main>
       <Sidenav />
       <Route exact path="/jobs" component={FindJobs} />
+      <Route exact path="/people" component={FindPeople} />
     </main>
   </Router>
 );

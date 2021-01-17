@@ -12,7 +12,7 @@ import Loading from '../components/Loading';
 import Listings from '../components/Listings';
 import Details from '../components/Details';
 
-const JobListings = ({
+const FindJobs = ({
   isLoading,
   jobSearchResults,
   jobDetails,
@@ -27,7 +27,7 @@ const JobListings = ({
   const initiateSearch = query => {
     dispatchUpdateLoadingState(true);
 
-    queryApi.post(0, { 'skill/role': { text: query, experience: 'potential-to-develop' } })
+    queryApi.post(0, 'opportunities', { 'skill/role': { text: query, experience: 'potential-to-develop' } })
       .then(result => {
         dispatchAddJobSearchResults({ result: result.results, total: result.total });
         if (searchParams.query !== query) history.push(`/jobs?query=${query}&jobId=${searchParams.jobId}`);
@@ -35,7 +35,7 @@ const JobListings = ({
       });
   };
 
-  const getJobDetails = jobId => {
+  const getDetails = jobId => {
     dispatchUpdateLoadingState(true);
 
     queryApi.get(`https://torre.co/api/opportunities/${jobId}`)
@@ -52,7 +52,7 @@ const JobListings = ({
     }
 
     if (searchParams.jobId !== undefined) {
-      getJobDetails(searchParams.jobId);
+      getDetails(searchParams.jobId);
     }
   }, []);
 
@@ -62,7 +62,7 @@ const JobListings = ({
 
       <Search initiateSearch={initiateSearch} defaultValue={searchParams.query ? searchParams.query : ''} total={jobSearchResults.total} />
 
-      <Listings searchResults={jobSearchResults} searchType="job" getJobDetails={getJobDetails} location={location} />
+      <Listings searchResults={jobSearchResults} searchType="job" getDetails={getDetails} location={location} />
 
       <Details details={jobDetails} detailsType="job" />
     </>
@@ -84,4 +84,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(JobListings);
+)(FindJobs);

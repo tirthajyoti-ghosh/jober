@@ -5,8 +5,8 @@ const queryApi = {
     axios.get(url)
       .then(result => result.data)
   ),
-  post: (page = 0, data) => (
-    axios.post(`https://search.torre.co/opportunities/_search/?offset=0&aggregate=false&size=20&page=${page}`, data)
+  post: (page = 0, type, data) => (
+    axios.post(`https://search.torre.co/${type}/_search/?offset=0&aggregate=false&size=20&page=${page}`, data)
       .then(result => result.data)
   ),
 };
