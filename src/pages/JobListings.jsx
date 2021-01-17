@@ -41,7 +41,7 @@ const JobListings = ({
 
   return (
     <>
-      <Search initiateSearch={initiateSearch} />
+      <Search initiateSearch={initiateSearch} total={jobSearchResults.total} />
 
       <section className="job-listings">
         {

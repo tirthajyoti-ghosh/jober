@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 
-const Search = ({ initiateSearch }) => {
+const Search = ({ initiateSearch, total }) => {
   const [query, setQuery] = useState('');
 
   return (
     <section className="search-section">
       <div className="heading">
         <h1>Search Jobs</h1>
-        <p>
-          <span className="result-number">144 results </span>
-          for your search terms
-        </p>
+        {
+          total
+            ? (
+              <p>
+                <span className="result-number">
+                  {total}
+                  {' '}
+                  results
+                  {' '}
+                </span>
+                for your search term
+              </p>
+            )
+            : ''
+        }
       </div>
 
       <div className="search">
