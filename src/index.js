@@ -10,8 +10,10 @@ import App from './App';
 
 const initialState = {
   isLoading: false,
-  jobSearchResults: {},
   jobDetails: {},
+  jobSearchResults: {},
+  peopleDetails: {},
+  peopleSearchResults: {},
 };
 
 const store = createStore(reducer,
