@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-const Search = ({ initiateSearch, total }) => {
-  const [query, setQuery] = useState('');
+const Search = ({ initiateSearch, total, defaultValue }) => {
+  const [query, setQuery] = useState(defaultValue);
 
   return (
     <section className="search-section">
@@ -36,19 +36,19 @@ const Search = ({ initiateSearch, total }) => {
           <ul>
             <li>Popular Skills</li>
             <li>
-              <a href="#">TypeScript</a>
+              <a href="/jobs?query=typescript">TypeScript</a>
             </li>
             <li>
-              <a href="#">Vue</a>
+              <a href="/jobs?query=vue">Vue</a>
             </li>
             <li>
-              <a href="#">React/Redux</a>
+              <a href="/jobs?query=react/redux">React/Redux</a>
             </li>
             <li>
-              <a href="#">Ruby</a>
+              <a href="/jobs?query=ruby">Ruby</a>
             </li>
             <li>
-              <a href="#">Ruby on Rails</a>
+              <a href="/jobs?query=ruby%20on%20rails">Ruby on Rails</a>
             </li>
           </ul>
         </div>

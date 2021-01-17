@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import queryString from 'query-string';
 
 import Search from '../components/Search';
 import queryApi from '../helpers/apiUtilities';
@@ -12,16 +14,21 @@ const JobListings = ({
   isLoading,
   jobSearchResults,
   jobDetails,
+  location,
   dispatchUpdateLoadingState,
   dispatchAddJobSearchResults,
   dispatchAddJobDetails,
 }) => {
+  const searchParams = queryString.parse(location.search);
+  const history = useHistory();
+
   const initiateSearch = query => {
     dispatchUpdateLoadingState(true);
 
     queryApi.post(0, { 'skill/role': { text: query, experience: 'potential-to-develop' } })
       .then(result => {
         dispatchAddJobSearchResults({ result: result.results, total: result.total });
+        if (searchParams.query !== query) history.push(`/jobs?query=${query}&jobId=${searchParams.jobId}`);
         dispatchUpdateLoadingState(false);
       });
   };
@@ -32,9 +39,20 @@ const JobListings = ({
     queryApi.get(`https://torre.co/api/opportunities/${jobId}`)
       .then(result => {
         dispatchAddJobDetails(result);
+        history.push(`/jobs?query=${searchParams.query}&jobId=${jobId}`);
         dispatchUpdateLoadingState(false);
       });
   };
+
+  useEffect(() => {
+    if (searchParams.query !== undefined) {
+      initiateSearch(searchParams.query);
+    }
+
+    if (searchParams.jobId !== undefined) {
+      getJobDetails(searchParams.jobId);
+    }
+  }, []);
 
   const formatLocations = (remote, locations) => {
     if (remote) {
@@ -57,14 +75,14 @@ const JobListings = ({
     <>
       {isLoading ? <Loading /> : ''}
 
-      <Search initiateSearch={initiateSearch} total={jobSearchResults.total} />
+      <Search initiateSearch={initiateSearch} defaultValue={searchParams.query ? searchParams.query : ''} total={jobSearchResults.total} />
 
       <section className="job-listings">
         { !jobSearchResults.result
           ? 'Start typing...' : (
             jobSearchResults.result.map(job => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-              <div className="job-card" key={job.id} role="menuitem" tabIndex={0} onClick={() => getJobDetails(job.id)}>
+              <div className={`job-card ${searchParams.jobId && searchParams.jobId === job.id ? 'active' : ''}`} key={job.id} role="menuitem" tabIndex={0} onClick={() => getJobDetails(job.id)}>
                 <div className="company">
                   <div className="img">
                     {job.organizations[0] ? (<img src={job.organizations[0].picture} alt="company" />) : ''}
