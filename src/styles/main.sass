@@ -161,7 +161,7 @@ body
     .job-listings
       margin-top: 50px
       padding: 25px 25px 0 25px
-      height: calc(100vh - 280px)
+      height: calc(100vh - 305px)
       overflow-y: auto
 
       .job-card
@@ -255,6 +255,7 @@ body
 
         p
           margin: 20px 0
+          color: #50535a
 
       .action-btn
         @include flex($justify-content: space-around, $align-items: center)
@@ -275,6 +276,14 @@ body
         .details-btn
           background-color: #000
           color: #fff
+
+.static-img
+  @include flex($justify-content: center, $align-items: center)
+  flex-direction: column
+  height: 100%
+
+  img
+    width: 70%
 
 // Loading styles and animation
 .loading

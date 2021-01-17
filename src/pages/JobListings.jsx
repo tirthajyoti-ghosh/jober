@@ -9,6 +9,8 @@ import updateLoadingState from '../store/actions/loadingState';
 import addJobSearchResults from '../store/actions/jobSearchResults';
 import addJobDetails from '../store/actions/jobDetails';
 import Loading from '../components/Loading';
+import jobSearchImg from '../job-search.svg';
+import jobDetailsImg from '../job-details.svg';
 
 const JobListings = ({
   isLoading,
@@ -77,10 +79,15 @@ const JobListings = ({
 
       <Search initiateSearch={initiateSearch} defaultValue={searchParams.query ? searchParams.query : ''} total={jobSearchResults.total} />
 
-      <section className="job-listings">
-        { !jobSearchResults.result
-          ? 'Start typing...' : (
-            jobSearchResults.result.map(job => (
+      { !jobSearchResults.result
+        ? (
+          <div className="static-img">
+            <h2>Start your job search!</h2>
+            <img src={jobSearchImg} alt="" />
+          </div>
+        ) : (
+          <section className="job-listings">
+            {jobSearchResults.result.map(job => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <div className={`job-card ${searchParams.jobId && searchParams.jobId === job.id ? 'active' : ''}`} key={job.id} role="menuitem" tabIndex={0} onClick={() => getJobDetails(job.id)}>
                 <div className="company">
@@ -102,13 +109,19 @@ const JobListings = ({
                   <p>Salary</p>
                 </div>
               </div>
-            )))}
-      </section>
+            ))}
+          </section>
+        )}
 
       <section className="job-details">
         {
           jobDetails.id === undefined
-            ? 'Start typing...'
+            ? (
+              <div className="static-img">
+                <img src={jobDetailsImg} alt="" />
+                <h3>Click on a job to view details</h3>
+              </div>
+            )
             : (
               <>
                 <header>
