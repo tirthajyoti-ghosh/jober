@@ -6,6 +6,7 @@ import queryApi from '../helpers/apiUtilities';
 import updateLoadingState from '../store/actions/loadingState';
 import addJobSearchResults from '../store/actions/jobSearchResults';
 import addJobDetails from '../store/actions/jobDetails';
+import Loading from '../components/Loading';
 
 const JobListings = ({
   isLoading,
@@ -54,6 +55,8 @@ const JobListings = ({
 
   return (
     <>
+      {isLoading ? <Loading /> : ''}
+
       <Search initiateSearch={initiateSearch} total={jobSearchResults.total} />
 
       <section className="job-listings">
