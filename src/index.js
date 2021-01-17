@@ -10,6 +10,7 @@ import App from './App';
 
 const initialState = {
   isLoading: false,
+  jobSearchResults: {},
 };
 
 const store = createStore(reducer,

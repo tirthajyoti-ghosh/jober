@@ -1,12 +1,42 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Search from '../components/Search';
 import queryApi from '../helpers/apiUtilities';
+import updateLoadingState from '../store/actions/loadingState';
+import addJobSearchResults from '../store/actions/jobSearchResults';
 
-const JobListings = () => {
+const JobListings = ({
+  isLoading,
+  jobSearchResults,
+  dispatchUpdateLoadingState,
+  dispatchJobSearchResults,
+}) => {
   const initiateSearch = query => {
+    dispatchUpdateLoadingState(true);
+
     queryApi.post(0, { 'skill/role': { text: query, experience: 'potential-to-develop' } })
-      .then(result => console.log(result));
+      .then(result => {
+        dispatchJobSearchResults({ result: result.results, total: result.total });
+        dispatchUpdateLoadingState(false);
+      });
+  };
+
+  const formatLocations = (remote, locations) => {
+    if (remote) {
+      if (locations.length === 0) {
+        return 'Remote';
+      }
+      return `Remote - ${locations.join('; ')}`;
+    }
+    return locations.join(';');
+  };
+
+  const formatCompensation = compensation => {
+    if (compensation === null || compensation.data === null) {
+      return 'Not available';
+    }
+    return `${compensation.data.currency} ${compensation.data.minAmount} - ${compensation.data.maxAmount} /${compensation.data.periodicity}`;
   };
 
   return (
@@ -14,146 +44,34 @@ const JobListings = () => {
       <Search initiateSearch={initiateSearch} />
 
       <section className="job-listings">
-        <div className="job-card">
-          <div className="company">
-            <div className="img">
-              <img src="https://torre-media.s3-us-west-2.amazonaws.com/Stripe.jfif" alt="company" />
-            </div>
+        {
+          jobSearchResults.result === undefined
+            ? 'Start typing...'
+            : isLoading
+              ? 'Loading...'
+              : jobSearchResults.result.map(job => (
+                <div className="job-card" key={job.id}>
+                  <div className="company">
+                    <div className="img">
+                      <img src={job.organizations[0].picture} alt="company" />
+                    </div>
 
-            <div className="info">
-              <h3>Senior UI/UX Designer</h3>
-              <p>Apple</p>
-            </div>
-          </div>
-          <div>
-            <h3>Cupertino, USA</h3>
-            <p>Location</p>
-          </div>
-          <div>
-            <h3>$25,000-30,000</h3>
-            <p>Salary</p>
-          </div>
-        </div>
-        <div className="job-card active">
-          <div className="company">
-            <div className="img">
-              <img src="https://res.cloudinary.com/torre-technologies-co/image/upload/v1600924860/origin/bio/organizations/quipu_logo_yikrag.png" alt="company" />
-            </div>
-
-            <div className="info">
-              <h3>Senior UI/UX Designer</h3>
-              <p>Apple</p>
-            </div>
-          </div>
-          <div>
-            <h3>Cupertino, USA</h3>
-            <p>Location</p>
-          </div>
-          <div>
-            <h3>$25,000-30,000</h3>
-            <p>Salary</p>
-          </div>
-        </div>
-        <div className="job-card">
-          <div className="company">
-            <div className="img">
-              <img src="https://torre-media.s3-us-west-2.amazonaws.com/Stripe.jfif" alt="company" />
-            </div>
-
-            <div className="info">
-              <h3>Senior UI/UX Designer</h3>
-              <p>Apple</p>
-            </div>
-          </div>
-          <div>
-            <h3>Cupertino, USA</h3>
-            <p>Location</p>
-          </div>
-          <div>
-            <h3>$25,000-30,000</h3>
-            <p>Salary</p>
-          </div>
-        </div>
-        <div className="job-card">
-          <div className="company">
-            <div className="img">
-              <img src="https://torre-media.s3-us-west-2.amazonaws.com/Stripe.jfif" alt="company" />
-            </div>
-
-            <div className="info">
-              <h3>Senior UI/UX Designer</h3>
-              <p>Apple</p>
-            </div>
-          </div>
-          <div>
-            <h3>Cupertino, USA</h3>
-            <p>Location</p>
-          </div>
-          <div>
-            <h3>$25,000-30,000</h3>
-            <p>Salary</p>
-          </div>
-        </div>
-        <div className="job-card">
-          <div className="company">
-            <div className="img">
-              <img src="https://torre-media.s3-us-west-2.amazonaws.com/Stripe.jfif" alt="company" />
-            </div>
-
-            <div className="info">
-              <h3>Senior UI/UX Designer</h3>
-              <p>Apple</p>
-            </div>
-          </div>
-          <div>
-            <h3>Cupertino, USA</h3>
-            <p>Location</p>
-          </div>
-          <div>
-            <h3>$25,000-30,000</h3>
-            <p>Salary</p>
-          </div>
-        </div>
-        <div className="job-card">
-          <div className="company">
-            <div className="img">
-              <img src="https://torre-media.s3-us-west-2.amazonaws.com/Stripe.jfif" alt="company" />
-            </div>
-
-            <div className="info">
-              <h3>Senior UI/UX Designer</h3>
-              <p>Apple</p>
-            </div>
-          </div>
-          <div>
-            <h3>Cupertino, USA</h3>
-            <p>Location</p>
-          </div>
-          <div>
-            <h3>$25,000-30,000</h3>
-            <p>Salary</p>
-          </div>
-        </div>
-        <div className="job-card">
-          <div className="company">
-            <div className="img">
-              <img src="https://torre-media.s3-us-west-2.amazonaws.com/Stripe.jfif" alt="company" />
-            </div>
-
-            <div className="info">
-              <h3>Senior UI/UX Designer</h3>
-              <p>Apple</p>
-            </div>
-          </div>
-          <div>
-            <h3>Cupertino, USA</h3>
-            <p>Location</p>
-          </div>
-          <div>
-            <h3>$25,000-30,000</h3>
-            <p>Salary</p>
-          </div>
-        </div>
+                    <div className="info">
+                      <h3>{job.objective.length > 30 ? `${job.objective.slice(0, 30)}...` : job.objective}</h3>
+                      <p>{job.organizations[0].name}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <h3>{formatLocations(job.remote, job.locations)}</h3>
+                    <p>Location</p>
+                  </div>
+                  <div>
+                    <h3>{formatCompensation(job.compensation)}</h3>
+                    <p>Salary</p>
+                  </div>
+                </div>
+              ))
+        }
       </section>
 
       <section className="job-details">
@@ -196,4 +114,17 @@ const JobListings = () => {
   );
 };
 
-export default JobListings;
+const mapStateToProps = state => ({
+  isLoading: state.isLoading,
+  jobSearchResults: state.jobSearchResults,
+});
+
+const mapDispatchToProps = dispatch => ({
+  dispatchUpdateLoadingState: value => dispatch(updateLoadingState(value)),
+  dispatchJobSearchResults: value => dispatch(addJobSearchResults(value)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(JobListings);
