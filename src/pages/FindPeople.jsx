@@ -46,7 +46,7 @@ const FindPeople = ({
   const getDetails = username => {
     dispatchUpdateLoadingState(true);
 
-    queryApi.get(`https://torre.bio/api/bios/${username}`)
+    queryApi.get(`https://ghosh-cors-anywhere.herokuapp.com/https://torre.bio/api/bios/${username}`)
       .then(result => {
         dispatchAddPeopleDetails(result);
         history.push(`/people?query=${searchParams.query}&username=${username}`);
@@ -72,7 +72,7 @@ const FindPeople = ({
 
       <Listings searchResults={peopleSearchResults} searchType="people" getDetails={getDetails} location={location} />
 
-      {/* <Details details={peopleDetails} detailsType="people" /> */}
+      <Details details={peopleDetails} detailsType="people" />
     </>
   );
 };
