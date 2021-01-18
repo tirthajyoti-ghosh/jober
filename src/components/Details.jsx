@@ -97,7 +97,7 @@ const Details = ({
     );
 
   return (
-    <section className="job-details">
+    <section className="details">
       {detailsType === 'job' ? jobDetailsJsx : peopleDetailsJsx}
     </section>
   );

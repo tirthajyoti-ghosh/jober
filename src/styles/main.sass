@@ -25,6 +25,24 @@ body
     width: calc( 100% - 750px )
     min-height: 100vh
     padding: 60px
+
+    .skills
+      ul
+        @include flex($justify-content: flex-start, $align-items: center)
+        flex-wrap: wrap
+        list-style-type: none
+        padding: 0
+        font-weight: bold
+
+        li
+          margin: 10px 5px
+
+          a
+            padding: 5px 20px
+            border-radius: 15px
+            background-color: #fff
+            color: $orange
+            text-decoration: none
   
     .sidenav
       @include flex($justify-content: space-between, $align-items: unset)
@@ -95,6 +113,7 @@ body
           margin-top: 0
           margin-bottom: 10px
           font-size: 30px
+          text-transform: capitalize
 
         p
           margin-top: 0
@@ -134,38 +153,22 @@ body
             padding: 15px 35px
             cursor: pointer
 
-        .popular-skills
-          ul
-            @include flex($justify-content: flex-start, $align-items: center)
-            flex-wrap: wrap
-            list-style-type: none
-            padding: 0
-            font-weight: bold
+      .skills
+        ul
+          li:first-child
+            margin: 10px 5px
+            background-color: $orange
+            color: #fff
+            padding: 5px 20px
+            border-radius: 15px
 
-            li:first-child
-              margin: 10px 5px
-              background-color: $orange
-              color: #fff
-              padding: 5px 20px
-              border-radius: 15px
-
-            li
-              margin: 10px 5px
-
-              a
-                padding: 5px 20px
-                border-radius: 15px
-                background-color: #fff
-                color: $orange
-                text-decoration: none
-
-    .job-listings
+    .listings
       margin-top: 50px
       padding: 25px 25px 0 25px
       height: calc(100vh - 305px)
       overflow-y: auto
 
-      .job-card
+      .card
         @include flex($justify-content: space-between, $align-items: center)
         @include no-border()
         background-color: #fff
@@ -186,21 +189,31 @@ body
           color: $grey
           margin: 0
 
-        .company
+        .skills
+          ul
+            li
+              margin: 10px 5px 10px 0
+
+              a
+                padding: 5px 20px
+                border-radius: 15px
+                background-color: $purple
+                color: #fff
+                text-decoration: none
+
+        .profile
           @include flex($justify-content: unset, $align-items: center)
 
           & > .img
-            padding: 13px
             margin-right: 15px
             margin-left: 0
-            width: 20px
-            height: 20px
-            background-color: #F4F5F8
-            border-radius: 50%
+            width: 50px
+            height: 50px
 
             img
-              width: 100%
-              height: 100%
+              width: 50px
+              height: 50px
+              border-radius: 50%
 
         &.active
           background-color: $purple
@@ -209,7 +222,19 @@ body
           h3
             color: #fff
 
-    .job-details
+      .card.people
+        .profile
+          & > .img
+            width: 70px
+            height: 70px
+            background-color: transparent
+
+            img
+              width: 70px
+              height: 70px
+              border-radius: 50%
+
+    .details
       width: 400px
       height: 100%
       position: fixed

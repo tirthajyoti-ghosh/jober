@@ -21,11 +21,16 @@ const Listings = ({
     return locations.join('; ');
   };
 
+  // Sort skills by weight in descending order and take first 3
   const formatSkills = skills => skills
     .sort((first, second) => second.weight - first.weight)
     .slice(0, 3)
     .map(skill => (
-      <a href={`/people?query=${skill.name.toLowerCase()}`} key={skill.name}>{skill.name}</a>
+      <li key={skill.name}>
+        <a href={`/people?query=${skill.name.toLowerCase()}`}>
+          {skill.name.length > 12 ? `${skill.name.slice(0, 15)}...` : skill.name}
+        </a>
+      </li>
     ));
 
   const formatJobCompensation = compensation => {
@@ -64,11 +69,11 @@ const Listings = ({
         </div>
       )
       : (
-        <section className="job-listings">
+        <section className="listings">
           {searchResults.result.map(job => (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            <div className={`job-card ${searchParams.jobId && searchParams.jobId === job.id ? 'active' : ''}`} key={job.id} role="menuitem" tabIndex={0} onClick={() => getDetails(job.id)}>
-              <div className="company">
+            <div className={`card ${searchParams.jobId && searchParams.jobId === job.id ? 'active' : ''}`} key={job.id} role="menuitem" tabIndex={0} onClick={() => getDetails(job.id)}>
+              <div className="profile">
                 <div className="img">
                   {job.organizations[0] ? (<img src={job.organizations[0].picture} alt="company" />) : ''}
                 </div>
@@ -105,13 +110,13 @@ const Listings = ({
         </div>
       )
       : (
-        <section className="job-listings">
+        <section className="listings">
           {searchResults.result.map(people => (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            <div className={`job-card ${searchParams.username && searchParams.username === people.username ? 'active' : ''}`} key={people.username} role="menuitem" tabIndex={0} onClick={() => getDetails(people.username)}>
-              <div className="company">
+            <div className={`card people ${searchParams.username && searchParams.username === people.username ? 'active' : ''}`} key={people.username} role="menuitem" tabIndex={0} onClick={() => getDetails(people.username)}>
+              <div className="profile">
                 <div className="img">
-                  {people.picture ? (<img src={people.picture} alt={people.name} />) : ''}
+                  {people.picture ? (<img src={people.picture} alt={people.name} />) : (<img src="https://user-images.githubusercontent.com/57726348/104851251-f71f2500-5919-11eb-907b-1fd77e6f7bb7.png" alt="logo" />)}
                 </div>
 
                 <div className="info">
@@ -120,9 +125,11 @@ const Listings = ({
                 </div>
               </div>
               <div>
-                {/* Sort skills by weight in descending order and take first 3 */}
-                {formatSkills(people.skills)}
-                <p>Skills</p>
+                <div className="skills">
+                  <ul>
+                    {formatSkills(people.skills)}
+                  </ul>
+                </div>
               </div>
               <div>
                 <h3>{formatPeopleCompensations(people.compensations)}</h3>
