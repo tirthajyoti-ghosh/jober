@@ -10,7 +10,7 @@ const App = () => (
   <Router>
     <main>
       <Sidenav />
-      <Route exact path="/jobs" component={FindJobs} />
+      <Route exact path="/" component={FindJobs} />
       <Route exact path="/people" component={FindPeople} />
     </main>
   </Router>

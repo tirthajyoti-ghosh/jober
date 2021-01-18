@@ -33,10 +33,10 @@ const FindJobs = ({
 
         if (searchParams.query !== query) {
           if (searchParams.jobId) {
-            history.push(`/jobs?query=${query}&jobId=${searchParams.jobId}`);
+            history.push(`?query=${query}&jobId=${searchParams.jobId}`);
           }
 
-          history.push(`/jobs?query=${query}`);
+          history.push(`?query=${query}`);
         }
 
         dispatchUpdateLoadingState(false);
@@ -49,7 +49,7 @@ const FindJobs = ({
     queryApi.get(`https://torre.co/api/opportunities/${jobId}`)
       .then(result => {
         dispatchAddJobDetails(result);
-        history.push(`/jobs?query=${searchParams.query}&jobId=${jobId}`);
+        history.push(`?query=${searchParams.query}&jobId=${jobId}`);
         dispatchUpdateLoadingState(false);
       });
   };

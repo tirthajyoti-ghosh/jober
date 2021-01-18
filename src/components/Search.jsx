@@ -42,19 +42,19 @@ const Search = ({
           <ul>
             <li>Popular Skills</li>
             <li>
-              <a href={`/${type}?query=typescript`}>TypeScript</a>
+              <a href={`/${type === 'jobs' ? '' : 'people'}?query=typescript`}>TypeScript</a>
             </li>
             <li>
-              <a href={`/${type}?query=vue`}>Vue</a>
+              <a href={`/${type === 'jobs' ? '' : 'people'}?query=vue`}>Vue</a>
             </li>
             <li>
-              <a href={`/${type}?query=react/redux`}>React/Redux</a>
+              <a href={`/${type === 'jobs' ? '' : 'people'}?query=react/redux`}>React/Redux</a>
             </li>
             <li>
-              <a href={`/${type}?query=ruby`}>Ruby</a>
+              <a href={`/${type === 'jobs' ? '' : 'people'}?query=ruby`}>Ruby</a>
             </li>
             <li>
-              <a href={`/${type}?query=ruby%20on%20rails`}>Ruby on Rails</a>
+              <a href={`/${type === 'jobs' ? '' : 'people'}?query=ruby%20on%20rails`}>Ruby on Rails</a>
             </li>
           </ul>
         </div>

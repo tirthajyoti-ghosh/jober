@@ -104,28 +104,28 @@ const Details = ({
               {details.person.links.map(link => {
                 if (link.name === 'linkedin') {
                   return (
-                    <a href={link.address} style={{color: '#0e76a8'}} rel="noreferrer" target="_blank">
+                    <a href={link.address} style={{ color: '#0e76a8' }} rel="noreferrer" target="_blank">
                       <i className="fab fa-linkedin-in" />
                     </a>
                   );
                 }
                 if (link.name === 'github') {
                   return (
-                    <a href={link.address} style={{color: '#24292e'}} rel="noreferrer" target="_blank">
+                    <a href={link.address} style={{ color: '#24292e' }} rel="noreferrer" target="_blank">
                       <i className="fab fa-github" />
                     </a>
                   );
                 }
                 if (link.name === 'twitter') {
                   return (
-                    <a href={link.address} style={{color: '#1DA1F2'}} rel="noreferrer" target="_blank">
+                    <a href={link.address} style={{ color: '#1DA1F2' }} rel="noreferrer" target="_blank">
                       <i className="fab fa-twitter" />
                     </a>
                   );
                 }
                 if (link.name === '') {
                   return (
-                    <a href={link.address} style={{color: '#6F32FF'}} rel="noreferrer" target="_blank">
+                    <a href={link.address} style={{ color: '#6F32FF' }} rel="noreferrer" target="_blank">
                       <i className="fab fa-globe" />
                     </a>
                   );
@@ -175,7 +175,7 @@ const Details = ({
 
                 <div>
                   <h4>{item.name}</h4>
-                  <p>{item.organizations[0].name}</p>
+                  <p>{item.organizations[0] ? item.organizations[0].name : ''}</p>
                   <p>
                     {`${item.fromMonth}, ${item.fromYear}${item.toMonth && item.toYear ? ` - ${item.toMonth}, ${item.toYear}` : ' - Current'}`}
                   </p>
