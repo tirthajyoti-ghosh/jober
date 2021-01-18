@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const queryApi = {
-  get: (url) => (
+  get: url => (
     axios.get(url)
       .then(result => result.data)
   ),

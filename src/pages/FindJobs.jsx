@@ -33,10 +33,10 @@ const FindJobs = ({
 
         if (searchParams.query !== query) {
           if (searchParams.jobId) {
-            history.push(`/people?query=${query}&jobId=${searchParams.jobId}`);
+            history.push(`/jobs?query=${query}&jobId=${searchParams.jobId}`);
           }
 
-          history.push(`/people?query=${query}`);
+          history.push(`/jobs?query=${query}`);
         }
 
         dispatchUpdateLoadingState(false);

@@ -57,9 +57,7 @@ const Listings = ({
   };
 
   const jobSearchResultsJsx = () => {
-    if (searchType !== 'job') {
-      return '';
-    }
+    if (searchType !== 'job') return '';
 
     return !searchResults.result
       ? (
@@ -75,7 +73,7 @@ const Listings = ({
             <div className={`card ${searchParams.jobId && searchParams.jobId === job.id ? 'active' : ''}`} key={job.id} role="menuitem" tabIndex={0} onClick={() => getDetails(job.id)}>
               <div className="profile">
                 <div className="img">
-                  {job.organizations[0] ? (<img src={job.organizations[0].picture} alt="company" />) : ''}
+                  {job.organizations[0] ? (<img src={job.organizations[0].picture} alt="company" />) : (<img src="https://user-images.githubusercontent.com/57726348/104851251-f71f2500-5919-11eb-907b-1fd77e6f7bb7.png" alt="logo" />)}
                 </div>
 
                 <div className="info">
@@ -98,9 +96,7 @@ const Listings = ({
   };
 
   const peopleSearchResultsJsx = () => {
-    if (searchType !== 'people') {
-      return '';
-    }
+    if (searchType !== 'people') return '';
 
     return !searchResults.result
       ? (
