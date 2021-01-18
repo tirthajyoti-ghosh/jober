@@ -214,10 +214,12 @@ body
               width: 50px
               height: 50px
               border-radius: 50%
+              object-fit: cover
 
         &.active
           background-color: $purple
-          filter: drop-shadow(0 0 0.75rem $purple)
+          // filter: drop-shadow(0 0 0.75rem $purple)
+          box-shadow: -2px -2px 6px $purple, 6px 6px 6px rgba(111, 50, 255, 0.24)
 
           h3
             color: #fff
@@ -227,7 +229,6 @@ body
           & > .img
             width: 70px
             height: 70px
-            background-color: transparent
 
             img
               width: 70px
@@ -244,6 +245,23 @@ body
       background-color: #fff
       overflow-y: auto
 
+      .profile
+        @include flex($justify-content: unset, $align-items: center)
+        width: fit-content
+        margin: 50px auto 20px auto
+
+        .img
+          padding: 13px
+          margin-right: 5px
+          width: 30px
+          height: 30px
+          background-color: transparent
+          border-radius: 50%
+
+          img
+            width: 100%
+            height: 100%
+
       h1
         margin: 0
 
@@ -256,23 +274,6 @@ body
         h4
           text-align: center
           margin: 40px 30px
-
-        .company
-          @include flex($justify-content: unset, $align-items: center)
-          width: fit-content
-          margin: 50px auto 20px auto
-
-          .img
-            padding: 13px
-            margin-right: 5px
-            width: 30px
-            height: 30px
-            background-color: transparent
-            border-radius: 50%
-
-            img
-              width: 100%
-              height: 100%
 
       .info
         padding: 10px 30px
@@ -303,6 +304,55 @@ body
         .details-btn
           background-color: #000
           color: #fff
+
+      .people
+        padding: 0 30px
+
+        h2
+          margin-top: 40px
+
+        header
+          .profile
+            display: block
+            text-align: center
+
+            .img
+              margin: 0 auto
+              width: 150px
+              height: 150px
+
+              img
+                border-radius: 50%
+
+            p
+              margin-top: 10px
+
+          .links
+            text-align: center
+
+            a
+              margin: 5px
+              font-size: 23px
+
+        .skills
+          ul
+            li
+              margin: 10px 5px
+              background-color: $orange
+              color: #fff
+              padding: 5px 20px
+              border-radius: 15px
+
+              a
+                padding: 0
+                background-color: $orange
+                color: #fff
+
+        .profile.company         
+          margin: 20px 0
+
+          h4
+            margin: 10px 0
 
 .static-img
   @include flex($justify-content: center, $align-items: center)
