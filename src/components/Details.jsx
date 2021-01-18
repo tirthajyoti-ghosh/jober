@@ -126,7 +126,7 @@ const Details = ({
                 if (link.name === '') {
                   return (
                     <a href={link.address} style={{ color: '#6F32FF' }} rel="noreferrer" target="_blank">
-                      <i className="fab fa-globe" />
+                      <i className="fas fa-globe" />
                     </a>
                   );
                 }
