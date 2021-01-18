@@ -30,7 +30,15 @@ const FindJobs = ({
     queryApi.post(0, 'opportunities', { 'skill/role': { text: query, experience: 'potential-to-develop' } })
       .then(result => {
         dispatchAddJobSearchResults({ result: result.results, total: result.total });
-        if (searchParams.query !== query) history.push(`/jobs?query=${query}&jobId=${searchParams.jobId}`);
+
+        if (searchParams.query !== query) {
+          if (searchParams.jobId) {
+            history.push(`/people?query=${query}&jobId=${searchParams.jobId}`);
+          }
+
+          history.push(`/people?query=${query}`);
+        }
+
         dispatchUpdateLoadingState(false);
       });
   };
@@ -60,7 +68,7 @@ const FindJobs = ({
     <>
       {isLoading ? <Loading /> : ''}
 
-      <Search initiateSearch={initiateSearch} defaultValue={searchParams.query ? searchParams.query : ''} total={jobSearchResults.total} />
+      <Search initiateSearch={initiateSearch} type="jobs" defaultValue={searchParams.query ? searchParams.query : ''} total={jobSearchResults.total} />
 
       <Listings searchResults={jobSearchResults} searchType="job" getDetails={getDetails} location={location} />
 

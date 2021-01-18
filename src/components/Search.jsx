@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 
-const Search = ({ initiateSearch, total, defaultValue }) => {
+const Search = ({
+  initiateSearch, type, total, defaultValue,
+}) => {
   const [query, setQuery] = useState(defaultValue);
 
   return (
     <section className="search-section">
       <div className="heading">
-        <h1>Search Jobs</h1>
+        <h1>
+          Search
+          {' '}
+          {type}
+        </h1>
         {
           total
             ? (
@@ -32,23 +38,23 @@ const Search = ({ initiateSearch, total, defaultValue }) => {
           </button>
         </div>
 
-        <div className="popular-skills">
+        <div className="skills">
           <ul>
             <li>Popular Skills</li>
             <li>
-              <a href="/jobs?query=typescript">TypeScript</a>
+              <a href={`/${type}?query=typescript`}>TypeScript</a>
             </li>
             <li>
-              <a href="/jobs?query=vue">Vue</a>
+              <a href={`/${type}?query=vue`}>Vue</a>
             </li>
             <li>
-              <a href="/jobs?query=react/redux">React/Redux</a>
+              <a href={`/${type}?query=react/redux`}>React/Redux</a>
             </li>
             <li>
-              <a href="/jobs?query=ruby">Ruby</a>
+              <a href={`/${type}?query=ruby`}>Ruby</a>
             </li>
             <li>
-              <a href="/jobs?query=ruby%20on%20rails">Ruby on Rails</a>
+              <a href={`/${type}?query=ruby%20on%20rails`}>Ruby on Rails</a>
             </li>
           </ul>
         </div>

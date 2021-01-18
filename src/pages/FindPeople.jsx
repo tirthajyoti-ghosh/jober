@@ -30,7 +30,15 @@ const FindPeople = ({
     queryApi.post(0, 'people', { 'skill/role': { text: query, experience: '1-plus-year' } })
       .then(result => {
         dispatchAddPeopleSearchResults({ result: result.results, total: result.total });
-        if (searchParams.query !== query) history.push(`/people?query=${query}&username=${searchParams.username}`);
+
+        if (searchParams.query !== query) {
+          if (searchParams.username) {
+            history.push(`/people?query=${query}&username=${searchParams.username}`);
+          }
+
+          history.push(`/people?query=${query}`);
+        }
+
         dispatchUpdateLoadingState(false);
       });
   };
@@ -60,7 +68,7 @@ const FindPeople = ({
     <>
       {isLoading ? <Loading /> : ''}
 
-      <Search initiateSearch={initiateSearch} defaultValue={searchParams.query ? searchParams.query : ''} total={peopleSearchResults.total} />
+      <Search initiateSearch={initiateSearch} type="people" defaultValue={searchParams.query ? searchParams.query : ''} total={peopleSearchResults.total} />
 
       <Listings searchResults={peopleSearchResults} searchType="people" getDetails={getDetails} location={location} />
 
