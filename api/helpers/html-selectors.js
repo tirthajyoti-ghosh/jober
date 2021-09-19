@@ -1,0 +1,30 @@
+module.exports = {
+    'remote-co': {
+        job: 'body > main > div.container.pt-4 > div.row > div.col > div.card.bg-light.mb-3.rounded-0 > div.card-body > div.card.bg-white.m-0 > div.card-body.p-0 > a.card.m-0',
+        title: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(1) > span.font-weight-bold.larger',
+        type: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2) > span.badge.badge-success:nth-child(1) > small',
+        region: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2) > span.badge.badge-success:nth-child(2) > small',
+        company: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2)',
+        logo: 'div.job-card > div.row.no-gutters > div.col-lg-1.col-md-2.position-static.d-none.d-md-block.pr-md-3 > img.card-img',
+    },
+    'remoteok-io': {
+        job: '#jobsboard > tbody > tr.job',
+        title: 'td.company_and_position > a[itemprop="url"] > h2[itemprop="title"]',
+        region: 'td.company_and_position > div.location.tooltip:nth-of-type(1)',
+        salary: 'td.company_and_position > div.location.tooltip:nth-of-type(2n)',
+        url: 'td.company_and_position > a[itemprop="url"]',
+        company: 'td.company_and_position > span.companyLink > a.preventLink > h3[itemprop="name"]',
+        logo: 'td.image.has-logo > a.preventLink > img.logo',
+        companyURL: 'td.image > a.preventLink',
+    },
+    'weworkremotely-com': {
+        job: 'section.jobs > article > ul > li.feature',
+        title: 'a > span.title',
+        type: 'a > span.company:nth-of-type(2n):not(.region)',
+        region: 'a > span.company.region',
+        url: 'a:not(.tooltip > a)',
+        company: 'a > span.company:nth-of-type(1)',
+        logo: '.tooltip > a > .flag-logo',
+        companyURL: '.tooltip > a',
+    },
+};
