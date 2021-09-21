@@ -6,6 +6,7 @@ module.exports = {
         region: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2) > span.badge.badge-success:nth-child(2) > small',
         company: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2)',
         logo: 'div.job-card > div.row.no-gutters > div.col-lg-1.col-md-2.position-static.d-none.d-md-block.pr-md-3 > img.card-img',
+        logoAttr: 'data-lazy-src',
     },
     'remoteok-io': {
         job: '#jobsboard > tbody > tr.job',
@@ -15,6 +16,7 @@ module.exports = {
         url: 'td.company_and_position > a[itemprop="url"]',
         company: 'td.company_and_position > span.companyLink > a.preventLink > h3[itemprop="name"]',
         logo: 'td.image.has-logo > a.preventLink > img.logo',
+        logoAttr: 'data-src',
         companyURL: 'td.image > a.preventLink',
     },
     'weworkremotely-com': {
