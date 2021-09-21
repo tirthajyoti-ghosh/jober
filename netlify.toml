@@ -1,3 +1,5 @@
+[build]
+    functions="api/endpoints"
 [[redirects]]
     from="/api/endpoints/*"
     to="/.netlify/functions/:splat"
