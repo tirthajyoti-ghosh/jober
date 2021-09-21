@@ -1,36 +1,46 @@
 /* eslint-disable max-len */
-// const cheerio = require('cheerio');
-const axios = require('axios');
+const urls = require('../utilities/urls');
+const properties = require('../utilities/api-properties');
+const { createAxiosInstance } = require('../utilities/helpers');
 
-const data = [];
-axios.post('https://oqubrx6zeq-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20JavaScript%20(4.0.0)%3B%20Browser%20(lite)&x-algolia-api-key=7a1d0ebc0d0e9ba3dc035fc09729f2a8&x-algolia-application-id=OQUBRX6ZEQ',
-    '{"requests":[{"indexName":"live_jobs","params":"query=&page=0&maxValuesPerFacet=1000&facets=%5B%22us_only%22%2C%22category%22%5D&tagFilters=&facetFilters=%5B%5B%22us_only%3Afalse%22%5D%5D"},{"indexName":"live_jobs","params":"query=&page=0&maxValuesPerFacet=1000&hitsPerPage=1&attributesToRetrieve=%5B%5D&attributesToHighlight=%5B%5D&attributesToSnippet=%5B%5D&tagFilters=&analytics=false&clickAnalytics=false&facets=us_only"}]}',
-    {
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded',
-        },
-    })
-    .then((res) => {
-        const jobs = res.data.results[0].hits;
+module.exports = async () => {
+    try {
+        const axios = createAxiosInstance();
+        const response = await axios.post(urls.home['remotive-io'],
+            '{"requests":[{"indexName":"live_jobs","params":"query=&page=0&maxValuesPerFacet=1000&facets=%5B%22us_only%22%2C%22category%22%5D&tagFilters=&facetFilters=%5B%5B%22us_only%3Afalse%22%5D%5D"},{"indexName":"live_jobs","params":"query=&page=0&maxValuesPerFacet=1000&hitsPerPage=1&attributesToRetrieve=%5B%5D&attributesToHighlight=%5B%5D&attributesToSnippet=%5B%5D&tagFilters=&analytics=false&clickAnalytics=false&facets=us_only"}]}',
+            {
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                },
+            });
 
+        const {
+            title, type, region, url, company, logo, companyURL,
+        } = properties['remotive-io'];
+
+        const jobs = response.data.results[0].hits;
+        const data = [];
         jobs.forEach((job) => {
             data.push({
                 job: {
-                    title: job.title,
-                    type: job.job_type,
-                    region: job.candidate_required_location,
-                    url: job.url,
+                    title: job[title],
+                    type: job[type],
+                    region: job[region],
+                    url: job[url],
                 },
                 company: {
-                    title: job.company_name,
-                    logo: job.logo,
-                    url: job.company_url && `https://remotive.io${job.company_url}`,
+                    title: job[company],
+                    logo: job[logo],
+                    url: job[companyURL] && `https://remotive.io${job[companyURL]}`,
                 },
             });
         });
 
-        console.log(data);
-    });
+        return data;
+    } catch (error) {
+        return error;
+    }
+};
 
 // -------------------------------------Scraper logic-------------------------------------
 // axios.get('https://remotive.io/', {
