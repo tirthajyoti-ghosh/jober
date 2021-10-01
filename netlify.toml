@@ -4,3 +4,5 @@
     from="/api/endpoints/*"
     to="/.netlify/functions/:splat"
     status=200
+[dev]
+    functionsPort = 3000
