@@ -8,5 +8,6 @@ module.exports = {
     },
     search: {
         'remote-co': 'https://remote.co/jm-ajax/get_listings/',
+        'remoteok-io': (keywords) => `https://remoteok.io/remote-${keywords}-jobs`, // The search keyword is inside the url
     },
 };
