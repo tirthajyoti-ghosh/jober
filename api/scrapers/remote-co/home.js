@@ -1,8 +1,8 @@
 const cheerio = require('cheerio');
 
-const urls = require('../utilities/urls');
-const selectors = require('../utilities/html-selectors');
-const { createAxiosInstance } = require('../utilities/helpers');
+const urls = require('../../utilities/urls');
+const selectors = require('../../utilities/html-selectors');
+const { createAxiosInstance } = require('../../utilities/helpers');
 
 module.exports = async () => {
     try {

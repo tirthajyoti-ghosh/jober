@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
-const urls = require('../utilities/urls');
-const properties = require('../utilities/api-properties');
-const { createAxiosInstance } = require('../utilities/helpers');
+const urls = require('../../utilities/urls');
+const properties = require('../../utilities/api-properties');
+const { createAxiosInstance } = require('../../utilities/helpers');
 
 module.exports = async () => {
     try {
