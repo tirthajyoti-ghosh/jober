@@ -1,12 +1,24 @@
 module.exports = {
     'remote-co': {
-        job: 'body > main > div.container.pt-4 > div.row > div.col > div.card.bg-light.mb-3.rounded-0 > div.card-body > div.card.bg-white.m-0 > div.card-body.p-0 > a.card.m-0',
-        title: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(1) > span.font-weight-bold.larger',
-        type: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2) > span.badge.badge-success:nth-child(1) > small',
-        region: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2) > span.badge.badge-success:nth-child(2) > small',
-        company: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2)',
-        logo: 'div.job-card > div.row.no-gutters > div.col-lg-1.col-md-2.position-static.d-none.d-md-block.pr-md-3 > img.card-img',
-        logoAttr: 'data-lazy-src',
+        home: {
+            job: 'body > main > div.container.pt-4 > div.row > div.col > div.card.bg-light.mb-3.rounded-0 > div.card-body > div.card.bg-white.m-0 > div.card-body.p-0 > a.card.m-0',
+            title: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(1) > span.font-weight-bold.larger',
+            type: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2) > span.badge.badge-success:nth-child(1) > small',
+            region: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2) > span.badge.badge-success:nth-child(2) > small',
+            company: 'div.job-card > div.row.no-gutters > div.col.position-static > div.card-body > p:nth-child(2)',
+            logo: 'div.job-card > div.row.no-gutters > div.col-lg-1.col-md-2.position-static.d-none.d-md-block.pr-md-3 > img.card-img',
+            logoAttr: 'data-lazy-src',
+        },
+        search: {
+            job: 'li.job_listing',
+            title: 'a > div.position > h3',
+            type: 'a > ul > li:first-child',
+            region: 'a > div.location',
+            url: 'a',
+            company: 'a > div.position > div.company > strong',
+            logo: 'a > img',
+            logoAttr: 'src',
+        },
     },
     'remoteok-io': {
         job: '#jobsboard > tbody > tr.job',

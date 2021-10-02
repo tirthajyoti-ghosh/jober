@@ -6,4 +6,7 @@ module.exports = {
         'weworkremotely-com': 'https://weworkremotely.com/',
         'workingnomads-co': 'https://www.workingnomads.co/jobsapi/job/_search?sort=expired:asc,premium:desc,pub_date:desc&_source=company,category_name,description,location_base,salary_range,salary_range_short,instructions,id,external_id,slug,title,pub_date,tags,source,apply_url,premium,expired,use_ats,position_type&size=100&from=0&q=(category_name.raw:%22Development%22)',
     },
+    search: {
+        'remote-co': 'https://remote.co/jm-ajax/get_listings/',
+    },
 };

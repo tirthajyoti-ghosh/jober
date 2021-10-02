@@ -1,8 +1,8 @@
-const scrapeRemoteCo = require('../scrapers/remote-co');
-const scrapeRemoteokIo = require('../scrapers/remoteok-io');
-const scrapeRemotiveIo = require('../scrapers/remotive-io');
-const scrapeWeworkremotelyCom = require('../scrapers/weworkremotely-com');
-const scrapeWorkingnomadsCo = require('../scrapers/workingnomads-co');
+const scrapeRemoteCo = require('../scrapers/remote-co/home');
+const scrapeRemoteokIo = require('../scrapers/remoteok-io/home');
+const scrapeRemotiveIo = require('../scrapers/remotive-io/home');
+const scrapeWeworkremotelyCom = require('../scrapers/weworkremotely-com/home');
+const scrapeWorkingnomadsCo = require('../scrapers/workingnomads-co/home');
 
 exports.handler = async () => {
     try {

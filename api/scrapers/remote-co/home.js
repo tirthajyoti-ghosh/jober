@@ -14,7 +14,7 @@ module.exports = async () => {
 
         const {
             job, title, type, region, company, logo, logoAttr,
-        } = selectors['remote-co'];
+        } = selectors['remote-co'].home;
 
         const data = [];
         $(job).each(function jobSection() {

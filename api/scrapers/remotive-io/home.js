@@ -38,6 +38,7 @@ module.exports = async () => {
 
         return data;
     } catch (error) {
+        console.log(error);
         return error;
     }
 };
