@@ -8,9 +8,9 @@ module.exports = async (requestType, keywords) => {
 
         let response;
         if (requestType === 'search') {
-            response = await axios.get(`${urls.home['workingnomads-co']}q=${keywords}`);
+            response = await axios.get(`${urls['workingnomads-co']}q=${keywords}`);
         } else {
-            response = await axios.get(`${urls.home['workingnomads-co']}q=(category_name.raw:%22Development%22)`);
+            response = await axios.get(`${urls['workingnomads-co']}q=(category_name.raw:%22Development%22)`);
         }
 
         const {

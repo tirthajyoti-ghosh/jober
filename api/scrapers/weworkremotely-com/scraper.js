@@ -9,9 +9,9 @@ module.exports = async (requestType, keywords) => {
         const axios = createAxiosInstance();
         let response;
         if (requestType === 'search') {
-            response = await axios.get(`${urls.search['weworkremotely-com']}?term=${keywords}`);
+            response = await axios.get(`${urls['weworkremotely-com'].search}?term=${keywords}`);
         } else {
-            response = await axios.get(urls.home['weworkremotely-com']);
+            response = await axios.get(urls['weworkremotely-com'].home);
         }
 
         const $ = cheerio.load(response.data);

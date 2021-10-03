@@ -10,7 +10,7 @@ module.exports = async (keywords) => {
     try {
         const axios = createAxiosInstance();
 
-        const response = await axios.post(urls.search['remote-co'],
+        const response = await axios.post(urls['remote-co'].search,
             querystring.stringify({
                 search_keywords: keywords,
                 per_page: 50,

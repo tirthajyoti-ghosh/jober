@@ -10,9 +10,9 @@ module.exports = async (requestType, keywords) => {
 
         let response;
         if (requestType === 'search') {
-            response = await axios.get(`${urls.search['remoteok-io']}${keywords}-jobs`);
+            response = await axios.get(`${urls['remoteok-io'].search}${keywords}-jobs`);
         } else {
-            response = await axios.get(urls.home['remoteok-io']);
+            response = await axios.get(urls['remoteok-io'].home);
         }
 
         const $ = cheerio.load(response.data);

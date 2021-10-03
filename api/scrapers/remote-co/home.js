@@ -8,7 +8,7 @@ module.exports = async () => {
     try {
         const axios = createAxiosInstance();
 
-        const response = await axios.get(urls.home['remote-co']);
+        const response = await axios.get(urls['remote-co'].home);
 
         const $ = cheerio.load(response.data);
 
