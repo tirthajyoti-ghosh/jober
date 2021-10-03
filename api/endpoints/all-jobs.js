@@ -1,8 +1,8 @@
-const scrapeRemoteCo = require('../scrapers/remote-co/home');
-const scrapeRemoteokIo = require('../scrapers/remoteok-io/home');
-const scrapeRemotiveIo = require('../scrapers/remotive-io/home');
-const scrapeWeworkremotelyCom = require('../scrapers/weworkremotely-com/home');
-const scrapeWorkingnomadsCo = require('../scrapers/workingnomads-co/home');
+const scrapeRemoteCoHome = require('../scrapers/remote-co/home');
+const scrapeRemoteokIoHome = require('../scrapers/remoteok-io/scraper');
+const scrapeRemotiveIoHome = require('../scrapers/remotive-io/scraper');
+const scrapeWeworkremotelyComHome = require('../scrapers/weworkremotely-com/scraper');
+const scrapeWorkingnomadsCoHome = require('../scrapers/workingnomads-co/scraper');
 
 exports.handler = async () => {
     try {
@@ -10,23 +10,23 @@ exports.handler = async () => {
 
         const promises = [
             (async () => {
-                const scrapedData = await scrapeRemoteCo();
+                const scrapedData = await scrapeRemoteCoHome();
                 data['remote-co'] = scrapedData;
             })(),
             (async () => {
-                const scrapedData = await scrapeRemoteokIo();
+                const scrapedData = await scrapeRemoteokIoHome();
                 data['remoteok-io'] = scrapedData;
             })(),
             (async () => {
-                const scrapedData = await scrapeRemotiveIo();
+                const scrapedData = await scrapeRemotiveIoHome();
                 data['remotive-io'] = scrapedData;
             })(),
             (async () => {
-                const scrapedData = await scrapeWeworkremotelyCom();
+                const scrapedData = await scrapeWeworkremotelyComHome();
                 data['weworkremotely-com'] = scrapedData;
             })(),
             (async () => {
-                const scrapedData = await scrapeWorkingnomadsCo();
+                const scrapedData = await scrapeWorkingnomadsCoHome();
                 data['workingnomads-co'] = scrapedData;
             })(),
         ];
