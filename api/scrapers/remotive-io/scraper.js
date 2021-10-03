@@ -3,11 +3,11 @@ const urls = require('../../utilities/urls');
 const properties = require('../../utilities/api-properties');
 const { createAxiosInstance } = require('../../utilities/helpers');
 
-module.exports = async () => {
+module.exports = async (keywords) => {
     try {
         const axios = createAxiosInstance();
         const response = await axios.post(urls.home['remotive-io'],
-            '{"requests":[{"indexName":"live_jobs","params":"query=&page=0&maxValuesPerFacet=1000&facets=%5B%22us_only%22%2C%22category%22%5D&tagFilters=&facetFilters=%5B%5B%22us_only%3Afalse%22%5D%5D"},{"indexName":"live_jobs","params":"query=&page=0&maxValuesPerFacet=1000&hitsPerPage=1&attributesToRetrieve=%5B%5D&attributesToHighlight=%5B%5D&attributesToSnippet=%5B%5D&tagFilters=&analytics=false&clickAnalytics=false&facets=us_only"}]}',
+            `{"requests":[{"indexName":"live_jobs","params":"query=${keywords || ''}&page=0&maxValuesPerFacet=1000&facets=%5B%22us_only%22%2C%22category%22%5D&tagFilters=&facetFilters=%5B%5B%22us_only%3Afalse%22%5D%5D"},{"indexName":"live_jobs","params":"query=&page=0&maxValuesPerFacet=1000&hitsPerPage=1&attributesToRetrieve=%5B%5D&attributesToHighlight=%5B%5D&attributesToSnippet=%5B%5D&tagFilters=&analytics=false&clickAnalytics=false&facets=us_only"}]}`,
             {
                 headers: {
                     'content-type': 'application/x-www-form-urlencoded',
