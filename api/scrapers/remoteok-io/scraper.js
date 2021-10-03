@@ -4,11 +4,16 @@ const urls = require('../../utilities/urls');
 const selectors = require('../../utilities/html-selectors');
 const { createAxiosInstance } = require('../../utilities/helpers');
 
-module.exports = async () => {
+module.exports = async (requestType, keywords) => {
     try {
         const axios = createAxiosInstance();
 
-        const response = await axios.get(urls.home['remoteok-io']);
+        let response;
+        if (requestType === 'search') {
+            response = await axios.get(`${urls.search['remoteok-io']}${keywords}-jobs`);
+        } else {
+            response = await axios.get(urls.home['remoteok-io']);
+        }
 
         const $ = cheerio.load(response.data);
 
