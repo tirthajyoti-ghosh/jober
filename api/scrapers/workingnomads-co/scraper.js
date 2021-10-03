@@ -2,10 +2,16 @@ const urls = require('../../utilities/urls');
 const properties = require('../../utilities/api-properties');
 const { createAxiosInstance } = require('../../utilities/helpers');
 
-module.exports = async () => {
+module.exports = async (requestType, keywords) => {
     try {
         const axios = createAxiosInstance();
-        const response = await axios.get(urls.home['workingnomads-co']);
+
+        let response;
+        if (requestType === 'search') {
+            response = await axios.get(`${urls.home['workingnomads-co']}q=${keywords}`);
+        } else {
+            response = await axios.get(`${urls.home['workingnomads-co']}q=(category_name.raw:%22Development%22)`);
+        }
 
         const {
             title, type, region, url, tags, company,
