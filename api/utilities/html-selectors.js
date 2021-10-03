@@ -32,7 +32,7 @@ module.exports = {
         companyURL: 'td.image > a.preventLink',
     },
     'weworkremotely-com': {
-        job: 'section.jobs > article > ul > li.feature',
+        job: 'section.jobs > article > ul > li',
         title: 'a > span.title',
         type: 'a > span.company:nth-of-type(2n):not(.region)',
         region: 'a > span.company.region',
