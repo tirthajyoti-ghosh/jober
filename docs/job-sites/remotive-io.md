@@ -15,3 +15,5 @@
     ```sh
     {"requests":[{"indexName":"live_jobs","params":"query=<SEARCH_TERM>&page=0&maxValuesPerFacet=1000&facets=%5B%22us_only%22%2C%22category%22%5D&tagFilters="}]}
     ```
+
+- remotive.io has a server-rendered job details page. It will of course be easy to scrape BUT after checking the DOM, I found that data collection will be a bit difficult as the paragraphs and headlines HTML tags does not have any uniqueness/identifying factor to them. In short, I need to establish a proper system where the main API will return a uniform response.

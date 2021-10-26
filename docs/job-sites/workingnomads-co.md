@@ -9,3 +9,5 @@
     ```
 
     In the above example you can see `company`, `location_base`, `title`, etc. comma (,) separated properties being sent along with the GET request. It means that these data points will be sent back to us from the API.
+
+- They have server-rendered job details page. And just like any other job sites, they have `p` and `ul` tags to display job data.

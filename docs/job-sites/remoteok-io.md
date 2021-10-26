@@ -5,3 +5,7 @@
 - On the other hand, remoteok.io serves server-rendered web pages. So scraping their website will be piece of cake.
 
 - Any job can be searched through their URL - <https://remoteok.io/remote-{{search-term}}-jobs>. The search results URL is very structured and it makes it easy to programmatically send a request to the URL to scrape the data.
+
+- The job details page is a bit tricky as the content is in markdown format. So I will have to parse the markdown and send back a well formatted JSON. Torre API response might help here. I have noticed Torre also crawls job sites and sends a formatted JSON in their API.
+
+    - For more information, check the "remoteok.io" section in job details docs file.
